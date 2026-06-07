@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
-import { ChevronDown, ArrowRight, MapPin } from 'lucide-react'
+import { ChevronDown, ArrowRight, MapPin, MessageCircle } from 'lucide-react'
 import { eventsData, getHighlightPhotos } from '../data/eventsData'
 import PhotoCard from '../components/PhotoCard'
 
@@ -62,29 +62,6 @@ function Hero() {
         >
           Basketball Event Photography
         </motion.p>
-
-        {/* Booking button */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 1.6, duration: 0.8 }}
-          className="mt-10 sm:mt-14 flex flex-col sm:flex-row items-center justify-center gap-4"
-        >
-          <Link
-            to="/contact"
-            className="inline-flex items-center gap-3 font-mono text-sm tracking-[0.15em] text-coal uppercase bg-neon hover:bg-white px-8 py-4 rounded transition-colors duration-300 group"
-          >
-            Book a Session
-            <ArrowRight size={16} className="transition-transform group-hover:translate-x-1" />
-          </Link>
-          <Link
-            to="/work"
-            className="inline-flex items-center gap-2 font-mono text-xs tracking-[0.2em] text-white/40 hover:text-neon uppercase transition-colors px-4 py-3"
-          >
-            View Work
-            <ArrowRight size={14} />
-          </Link>
-        </motion.div>
       </motion.div>
 
       <motion.div
@@ -149,6 +126,99 @@ function Highlights() {
             </div>
           )
         })}
+      </div>
+    </section>
+  )
+}
+
+const services = [
+  {
+    title: 'Tournament Coverage',
+    description: 'Full-day event documentation from warm-up to trophy ceremony.',
+    badge: 'Most Popular',
+    badgeColor: 'bg-neon text-coal',
+  },
+  {
+    title: 'Player Portraits',
+    description: 'Studio-level shoots on or off the court. Built for athletes.',
+    badge: null,
+    badgeColor: '',
+  },
+  {
+    title: 'Season Package',
+    description: 'Ongoing coverage across your full league season.',
+    badge: 'Best Value',
+    badgeColor: 'bg-neon text-coal',
+  },
+]
+
+function Services() {
+  return (
+    <section id="services" className="py-20 sm:py-32 px-4 sm:px-8 lg:px-16">
+      <div className="section-line max-w-md mx-auto mb-16 sm:mb-24" />
+
+      <div className="max-w-7xl mx-auto">
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: '-100px' }}
+          transition={{ duration: 0.8 }}
+          className="mb-12 sm:mb-16"
+        >
+          <div className="flex items-center gap-3 mb-4">
+            <div className="h-px flex-1 max-w-[60px] bg-neon/40" />
+            <span className="font-mono text-[10px] tracking-[0.4em] text-neon/80 uppercase">
+              Let's Work
+            </span>
+          </div>
+          <h2 className="font-marker text-4xl sm:text-5xl md:text-6xl text-white mb-4">
+            BOOK NOW
+          </h2>
+          <p className="font-mono text-sm text-white/40 max-w-lg">
+            Tournament coverage, player portraits, or a full season package — use the chat widget to lock in your dates with zero friction.
+          </p>
+        </motion.div>
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
+          {services.map((service, i) => (
+            <motion.div
+              key={service.title}
+              initial={{ opacity: 0, y: 40 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: '-50px' }}
+              transition={{ delay: i * 0.12, duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] }}
+              className="group relative rounded-sm border border-white/8 hover:border-neon/25 bg-gradient-to-b from-white/[0.03] to-transparent p-6 sm:p-8 transition-all duration-500 hover:shadow-[0_0_40px_rgba(255,87,51,0.06)]"
+            >
+              {/* Badge */}
+              {service.badge && (
+                <span className={`absolute top-5 right-5 ${service.badgeColor} font-mono text-[9px] tracking-[0.15em] uppercase px-3 py-1 rounded-full font-bold`}>
+                  {service.badge}
+                </span>
+              )}
+
+              <p className="font-mono text-[10px] tracking-[0.4em] text-neon/70 uppercase mb-4">
+                Service
+              </p>
+
+              <h3 className="font-marker text-xl sm:text-2xl text-white mb-3 group-hover:text-neon transition-colors duration-300">
+                {service.title}
+              </h3>
+
+              <p className="font-mono text-xs sm:text-sm text-white/35 leading-relaxed mb-8">
+                {service.description}
+              </p>
+
+              <Link
+                to="/contact"
+                className="inline-flex items-center gap-2 font-mono text-[11px] tracking-[0.2em] text-white/40 hover:text-neon uppercase transition-colors group/link"
+              >
+                <MessageCircle size={12} />
+                Inquire via Chat
+                <ArrowRight size={12} className="transition-transform group-hover/link:translate-x-1" />
+              </Link>
+            </motion.div>
+          ))}
+        </div>
       </div>
     </section>
   )
@@ -249,6 +319,7 @@ export default function HomePage() {
     <>
       <Hero />
       <Highlights />
+      <Services />
       <EventsPreview />
     </>
   )
