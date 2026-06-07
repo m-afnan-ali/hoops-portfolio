@@ -27,7 +27,7 @@ function Hero() {
         transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
         className="text-center max-w-5xl"
       >
-        <h1 className="font-marker text-5xl sm:text-7xl md:text-8xl lg:text-9xl leading-[0.9] tracking-tight text-white mb-8 sm:mb-10">
+        <h1 className="font-marker text-6xl sm:text-8xl md:text-9xl lg:text-[10rem] leading-[0.95] uppercase text-white mb-8 sm:mb-10">
           <motion.span
             initial={{ opacity: 0, x: -30 }}
             animate={{ opacity: 1, x: 0 }}
