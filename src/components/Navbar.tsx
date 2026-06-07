@@ -19,7 +19,6 @@ export default function Navbar() {
   const links = [
     { label: 'Work', to: '/work' },
     { label: 'Services', to: '/#services' },
-    { label: 'Contact', to: '/contact' },
   ]
 
   const isActive = (to: string) =>
