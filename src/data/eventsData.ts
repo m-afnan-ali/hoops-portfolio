@@ -139,7 +139,7 @@ export const eventsData: EventData[] = [
       '_DSC0004.jpg','_DSC0023.jpg','_DSC0030.jpg','_DSC0031.jpg','_DSC0100.jpg',
       '_DSC0167.jpg','_DSC0172.jpg','_DSC0180.jpg','_DSC0189.jpg','_DSC0202.jpg',
       '_DSC0225.jpg','_DSC0256.jpg','_DSC0263.jpg','_DSC0390.jpg','_DSC0442.jpg',
-      '_DSC0597.jpg','_DSC0742.jpg','_DSC0820.jpg','_DSC0833.jpg','_DSC0834.jpg',
+      '_DSC0742.jpg','_DSC0820.jpg','_DSC0833.jpg','_DSC0834.jpg',
     ]),
   },
   {
