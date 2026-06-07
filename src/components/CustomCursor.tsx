@@ -1,24 +1,31 @@
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
+
+function isTouchDevice() {
+  return window.matchMedia('(pointer: coarse)').matches
+}
 
 export default function CustomCursor() {
-  const posRef = useRef<HTMLDivElement>(null)   // position — no transition
-  const rotRef = useRef<HTMLDivElement>(null)    // rotation — no transition
-  const scaleRef = useRef<HTMLDivElement>(null)  // scale — CSS transition (hover only)
+  const [enabled, setEnabled] = useState(false)
+  const posRef = useRef<HTMLDivElement>(null)
+  const rotRef = useRef<HTMLDivElement>(null)
+  const scaleRef = useRef<HTMLDivElement>(null)
   const rot = useRef(0)
   const lastX = useRef(0)
 
   useEffect(() => {
+    // Don't render or attach listeners on touch devices
+    if (isTouchDevice()) return
+    setEnabled(true)
+
     const pos = posRef.current
     const rotEl = rotRef.current
     const scaleEl = scaleRef.current
     if (!pos || !rotEl || !scaleEl) return
 
     const onMove = (e: MouseEvent) => {
-      // Position — translate3d for GPU, zero delay
       pos.style.transform = `translate3d(${e.clientX - 14}px,${e.clientY - 14}px,0)`
       pos.style.opacity = '1'
 
-      // Rotation — direct update, no transition
       const dx = e.clientX - lastX.current
       rot.current += dx * 0.4
       rotEl.style.transform = `rotate(${rot.current}deg)`
@@ -55,7 +62,10 @@ export default function CustomCursor() {
       document.removeEventListener('mouseleave', onLeave)
       document.removeEventListener('mouseenter', onEnter)
     }
-  }, [])
+  }, [enabled])
+
+  // Don't render anything on touch devices
+  if (!enabled) return null
 
   return (
     <div
@@ -71,9 +81,7 @@ export default function CustomCursor() {
         transition: 'opacity 0.12s',
       }}
     >
-      {/* Rotation layer — updated every mousemove, NO transition */}
       <div ref={rotRef} style={{ transformOrigin: 'center center' }}>
-        {/* Scale layer — only changes on hover, HAS transition */}
         <div ref={scaleRef} style={{ transformOrigin: 'center center', transition: 'transform 0.18s ease-out' }}>
           <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
             <circle cx="14" cy="14" r="13" fill="#FF5733" stroke="#1a1a1a" strokeWidth="1.5" />

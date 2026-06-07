@@ -11,8 +11,11 @@
   --font-mono: 'Space Mono', monospace;
 }
 
-* {
-  cursor: none !important;
+/* Hide default cursor only on devices with a real mouse */
+@media (pointer: fine) {
+  * {
+    cursor: none !important;
+  }
 }
 
 html {
